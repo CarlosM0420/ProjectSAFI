@@ -1,89 +1,51 @@
-#loginbox{
-    display: flex;
-    height: 100vh;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    
+@import "bourbon";
 
-    
-}
-.form {
-    background-color: #fff;
-    display: block;
-    padding: 1rem;
-    width: 30rem;
-    height: 35rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 15px 20px -4px rgba(0, 0, 0);
-    
+body {
+	background: #eee !important;	
 }
 
-#logoOF {
-
-    width: 18rem;
-    height: 8rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
-
-}
-.form-title {
-    font-size: 1.80rem;
-    line-height: 1.35rem;
-    font-weight: 700;
-    text-align: center;
-    color: #000;
+.wrapper {	
+	margin-top: 80px;
+  margin-bottom: 80px;
 }
 
-.input-container {
-    position: relative;
-    margin-bottom: 1rem;
-}
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);  
 
-.input-container input, .form button {
-    outline: none;
-    border: 3px solid #aaabad;
-    margin: 8px 0;
-}
+  .form-signin-heading,
+	.checkbox {
+	  margin-bottom: 30px;
+	}
 
-.input-container input {
-    background-color: #fff;
-    padding: 0.501rem;
-    padding-right: 2rem;
-    font-size: 0.975rem;
-    line-height: 1.10rem;
-    width: 400px;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0);
-}
+	.checkbox {
+	  font-weight: normal;
+	}
 
-.submit {
-    display: block;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;    
-    background-color: #00AF00;
-    color: #fff;
-    font-size: 0.875rem;
-    line-height: 1.15rem;
-    font-weight: 500;
-    width: 40%;
-    border-radius: 0.5rem;
-    text-transform: uppercase;
-}
+	.form-control {
+	  position: relative;
+	  font-size: 16px;
+	  height: auto;
+	  padding: 10px;
+		@include box-sizing(border-box);
 
-.signup-link {
-    color: #808080;
-    font-size: 0.975rem;
-    line-height: 2.25rem;
-    text-align: center;
-}
+		&:focus {
+		  z-index: 2;
+		}
+	}
 
-.signup-link a {
-    text-decoration: underline;
-}
-#input-passw{
-    margin-bottom: 2rem;
+	input[type="email"] {
+	  margin-bottom: -1px;
+	  border-bottom-left-radius: 0;
+	  border-bottom-right-radius: 0;
+	}
+
+	input[type="password"] {
+	  margin-bottom: 20px;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
 }

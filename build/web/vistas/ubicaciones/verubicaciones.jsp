@@ -7,8 +7,9 @@
 <%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="Modelos.Ubicaciones"%>
-<%@page import="Modelos.UbicacionesDAO"%>
+<%@page import="com.safi.pojo.Ubicaciones"%>
+<%@page import="com.safi.dao.UbicacionesDAO"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,16 +53,16 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="../vistas/dashboard.html">
+                            <a class="nav-link" href="../inicio.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Opciones</div>
-                            <a class="nav-link" href="ActivosFijos/veractivofijos.jsp">
+                            <a class="nav-link" href="../activosFijos/veractivosFijos.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Activos Fijos
                             </a>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="#" style="color: white; font-weight: bolder">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Ubicaciones
                             </a>                            
@@ -79,9 +80,8 @@
             <div id="layoutSidenav_content">
 
                 <div id="body_box">
-                    <div id="btnsBox">             
-                        <br/><button id="btnAdd"  class="btn btn-light" data-toggle="modal" data-target="#AgregarUbicacion">Agregar Activo fijo</button>
-                        <br/><a id="btnclose" href="../inicio.html" class="btn btn-dark">Volver</a>            
+                    <div id="btnsBox">                                                      
+                        <button id="btnAdd"  class="btn btn-light" data-toggle="modal" data-target="#AgregarUbicacion">Agregar Ubicación</button>                                                                                                         
                     </div>
                     <h1 id="titulo">Ubicaciones</h1>
                     <table class="table table-hover">
@@ -112,15 +112,14 @@
                             <td><%= ubi.getUbi_descripcion()%></td>
                             <td><%= ubi.getUbi_centro_costo()%></td>                        
                             <td id="acciones">                           
-                                <a href="#" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="btn btn-warning edit-btn" data-toggle="modal" data-target="#EditarUbicacion" data-ubi_codigo="<%= ubi.getUbi_codigo()%>" data-ubi_descrip="<%= ubi.getUbi_descripcion()%>" data-ubi_centrocosto="<%= ubi.getUbi_centro_costo()%>" data-ubi_id="<%= ubi.getId()%>"><i class="fa-solid fa-pen-to-square"></i></a>
                                 <a href="#" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>                    
                             </td>               
                         </tr>
                         <%}%>
                     </table> 
                 </div>
-                    
-                <div class="modal fade" id="AgregarUbicacion" tabindex="-1" role="dialog" aria-hidden="true">
+
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -128,9 +127,9 @@
                                 <a class="close  btn btn-danger" data-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i></a>
                             </div>
                             <div class="modal-body">
-                                
+
                                 <form action="../../UbicacionesServlet">
-                                    
+
                                     <div class="form-group">
                                         <label for="editCodigo">Código</label>
                                         <input type="number" class="form-control" name="txtubi_codigo" id="inputform" required/>
@@ -154,6 +153,107 @@
                     </div>
                 </div>
 
+
+                <div class="modal fade" id="EditarUbicacion" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editar Ubicación</h5>                       
+                                <a class="close  btn btn-danger" data-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i></a>
+                            </div>
+                            <div class="modal-body">
+
+                                <form action="../../UbicacionesServlet">
+                                    <input type="hidden" name="txtubi_idEdit" id="ubi_id">
+                                    <div class="form-group">
+                                        <label for="editCodigo">Código</label>
+                                        <input type="number" class="form-control" name="txtubi_codigoEdit" id="ubi_codigo" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editFamilia">Descripción</label>
+                                        <input type="text" class="form-control" name="txtubi_descripcionEdit" id="ubi_descrip" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editUbicacion">Centro de costo</label>
+                                        <input type="text" class="form-control" name="txtubi_centro_costoEdit" id="ubi_centrocosto" required/>     
+                                    </div>                            
+
+                                    <div class="modal-footer">
+                                        <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success" name="accion" value="actubicacion">Actualizar</button>                                
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="modal fade" id="AgregarUbicacion" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Agregar Ubicación</h5>                       
+                                <a class="close  btn btn-danger" data-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i></a>
+                            </div>
+                            <div class="modal-body">
+
+                                <form action="../../UbicacionesServlet">
+
+                                    <div class="form-group">
+                                        <label for="editCodigo">Código</label>
+                                        <input type="number" class="form-control" name="txtubi_codigo" id="inputform" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editFamilia">Descripción</label>
+                                        <input type="text" class="form-control" name="txtubi_descripcion" id="inputform" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editUbicacion">Centro de costo</label>
+                                        <input type="text" class="form-control" name="txtubi_centro_costo" id="inputform" required/>     
+                                    </div>                            
+
+                                    <div class="modal-footer">
+                                        <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success" name="accion" value="agrubicacion">Crear Ubicación</button>                                
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="EditarUbicacion" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editar Ubicación</h5>                       
+                                <a class="close  btn btn-danger" data-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i></a>
+                            </div>
+                            <div class="modal-body">
+
+                                <form action="../../UbicacionesServlet">
+                                    <input type="hidden" name="txtubi_idEdit" id="ubi_id">
+                                    <div class="form-group">
+                                        <label for="editCodigo">Código</label>
+                                        <input type="number" class="form-control" name="txtubi_codigoEdit" id="ubi_codigo" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editFamilia">Descripción</label>
+                                        <input type="text" class="form-control" name="txtubi_descripcionEdit" id="ubi_descrip" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="editUbicacion">Centro de costo</label>
+                                        <input type="text" class="form-control" name="txtubi_centro_costoEdit" id="ubi_centrocosto" required/>     
+                                    </div>                            
+
+                                    <div class="modal-footer">
+                                        <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success" name="accion" value="actubicacion">Actualizar</button>                                
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
@@ -179,5 +279,23 @@
         <script src="../../js/js-menu.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>        
+        <script>
+            // abicamos los datos en los input de la modal
+            $(document).ready(function () {
+                $('.edit-btn').click(function () {
+                    var ubi_codigo = $(this).data('ubi_codigo');
+                    var ubi_descrip = $(this).data('ubi_descrip');
+                    var ubi_centrocosto = $(this).data('ubi_centrocosto');
+                    var ubi_id = $(this).data('ubi_id');
+
+                    $('#ubi_codigo').val(ubi_codigo);
+                    $('#ubi_descrip').val(ubi_descrip);
+                    $('#ubi_centrocosto').val(ubi_centrocosto);
+                    $('#ubi_id').val(ubi_id);
+
+                });              
+            });
+            
+        </script>
     </body>
 </html>

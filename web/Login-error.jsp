@@ -11,11 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="../../css/index.css"/>
+<!--        <link rel="stylesheet" href="../../css/index.css"/>-->
     </head>
     <body>
         <script>
-            Swal.fire(
+            Swal.fire(  
                     'Ups',
                     'Correo o Contraseña incorrecta',
                     'error'
@@ -24,5 +24,6 @@
     });
         </script>       
         <jsp:include page="index.jsp" />
+       
     </body>
 </html>

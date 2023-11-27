@@ -4,7 +4,7 @@
  */
 package com.safi.servlet;
 
-import Controlador.Conexion;
+import com.safi.controlador.Conexion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADSO
  */
+@WebServlet(name = "LoginServlet", urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -48,33 +50,17 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -82,7 +68,7 @@ public class LoginServlet extends HttpServlet {
         try {
 
             Connection connection = con.AbrirConexion();
-            PreparedStatement ps = (PreparedStatement) connection.prepareCall("{call bd_safi.ValidarLogin(?, ?)}");
+            PreparedStatement ps = (PreparedStatement) connection.prepareCall("{call bdsafi.sp_ValidarLogin(?, ?)}");
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
