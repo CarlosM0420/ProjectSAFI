@@ -5,7 +5,7 @@
 package com.safi.servlet;
 
 import com.google.gson.Gson;
-import com.safi.controlador.Conexion;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +18,6 @@ import com.safi.pojo.EquiposComputo;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Properties;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.mail.*;
 import javax.mail.internet.*;
 
@@ -29,7 +27,7 @@ import javax.mail.internet.*;
  */
 public class EquiposServlet extends HttpServlet {
 
-    String verequiposcomputo = "vistas/activosFijos/equiposcomputo.jsp";
+    
 
     ActivosFijos acf = new ActivosFijos();
     EquiposComputo equ = new EquiposComputo();
@@ -144,9 +142,9 @@ public class EquiposServlet extends HttpServlet {
             equ.setEqu_capacidad_almacenamiento(txtequ_capacidad_almacenamiento);
             equ.setTblactivosfijos_id(act_id);
             equDAO.CrearEquipoComputo(equ);
-            
 
-// Configuración de las propiedades del correo
+          
+            // Configuración de las propiedades del correo
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
@@ -183,7 +181,7 @@ public class EquiposServlet extends HttpServlet {
                     new InternetAddress(Destinatario3),
                     new InternetAddress(Destinatario4)
                 };
-                
+
                 mensaje.setRecipients(Message.RecipientType.TO, Correos);
 
                 // asunto establecido
@@ -200,7 +198,7 @@ public class EquiposServlet extends HttpServlet {
             } catch (MessagingException e) {
 
             }
-
+             
             response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
 
         } else if (accion.equalsIgnoreCase("ActualizarEquipos")) {
@@ -251,7 +249,7 @@ public class EquiposServlet extends HttpServlet {
 
             //ejecutamos el metodo del DAO de Activos Fijos
             acfDAO.ActualizarActivoFijo(acf);
-            
+
             //enviamos los datos a los respectivos Sets de equipos computo
             equ.setEqu_procesador(txtequ_procesadorEdit);
             equ.setEqu_ram(txtequ_ramEdit);
@@ -262,15 +260,16 @@ public class EquiposServlet extends HttpServlet {
             equ.setEqu_capacidad_almacenamiento(txtequ_capacidad_almacenamientoEdit);
             equ.setTblactivosfijos_id(txtequ_id_Act);
             equ.setId(txtequ_id);
-            
+
             //ejecutamos el metodo DAO de Equipos de computo            
             equDAO.ActualizarEquipoComputo(equ);
 
-            
             response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
+            
+                     
+             
 
         }
 
-        
     }
 }
