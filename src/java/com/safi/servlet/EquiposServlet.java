@@ -17,8 +17,11 @@ import com.safi.pojo.ActivosFijos;
 import com.safi.pojo.EquiposComputo;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Properties;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
+import javax.mail.*;
+import javax.mail.internet.*;
 
 /**
  *
@@ -141,6 +144,62 @@ public class EquiposServlet extends HttpServlet {
             equ.setEqu_capacidad_almacenamiento(txtequ_capacidad_almacenamiento);
             equ.setTblactivosfijos_id(act_id);
             equDAO.CrearEquipoComputo(equ);
+            
+
+// Configuración de las propiedades del correo
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "587");
+
+            // Dirección de correo y contraseña de aplicaciones en gmail
+            final String correo = "carlosmarquez200404@gmail.com";
+            final String contrasena = "csfqqzzuuwctyqay";
+
+            // Crear una sesión de correo
+            Session sesion = Session.getInstance(props, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(correo, contrasena);
+                }
+            });
+
+            try {
+                // Crear un mensaje de correo
+                Message mensaje = new MimeMessage(sesion);
+                mensaje.setFrom(new InternetAddress(correo));
+
+                // Direcciones de correo
+                String Destinatario1 = ("carlosmarquez200404@gmail.com");
+                String Destinatario2 = ("omarorozco@gmail.com");
+                String Destinatario3 = ("josepiineda06@gmail.com");
+                String Destinatario4 = ("dannavesa04@gmail.com");
+
+                // Guardamos las direcciones a las que sera enviada el correo en un array
+                InternetAddress[] Correos = {
+                    new InternetAddress(Destinatario1),
+                    new InternetAddress(Destinatario2),
+                    new InternetAddress(Destinatario3),
+                    new InternetAddress(Destinatario4)
+                };
+                
+                mensaje.setRecipients(Message.RecipientType.TO, Correos);
+
+                // asunto establecido
+                String asuntoPredeterminado = "Ficha de mantenimiento de computo con codigo #" + txtact_codigo;
+                mensaje.setSubject(asuntoPredeterminado);
+
+                // mensaje establecido
+                String mensajePredeterminado = "¡Fue registrada correctamente!";
+                mensaje.setText(mensajePredeterminado);
+
+                // Enviamos el mensaje
+                Transport.send(mensaje);
+
+            } catch (MessagingException e) {
+
+            }
 
             response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
 
