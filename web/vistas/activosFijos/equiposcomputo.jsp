@@ -20,7 +20,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="Omar Orozco" />
-        <title>Inicio</title>
+        <title>Equipos Computo</title>
+        <!-- Script de api de reCAPtcha -->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="../../css/css-menu.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -71,6 +74,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="#">Equipos Computo</a>
                                     <a class="nav-link" href="#">Maquinaria</a>
+                                    <a class="nav-link" href="muebles.jsp">Muebles</a>
                                 </nav>
                             </div>
                             <a class="nav-link" href="../ubicaciones/ubicaciones.jsp">
@@ -153,7 +157,7 @@
                                                 <td>${e.activosfijos.act_no_serie}</td>
                                                 <td>${e.activosfijos.act_precio_adqu}</td>
                                                 <td>
-                                                    <a class="btn btn-warning editbutton" data-toggle="modal" data-target="#EditarEquipoComputo" data-equ_id="${e.id}"><i class="fa-solid fa-pen-to-square"></i></a>                                                    
+                                                    <a class="btn btn-warning editbutton" data-equ_id="${e.id}"><i class="fa-solid fa-pen-to-square"></i></a>                                                    
                                                     <a class="btn btn-danger" href="../reportes/report_equipo.jsp?txtequi_id=${e.id}" target="_blank"><i class="fa-solid fa-file-pdf"></i></a>
                                                 </td>
                                             </tr>
@@ -293,7 +297,7 @@
                                                     </div> 
                                                     <div class="col-md-4 mb-3">
                                                         <label>Tipo de Equipo</label>
-                                                        <select class="form-select" aria-label="Default select example" name="txtact_estado" required>
+                                                        <select class="form-select" aria-label="Default select example" name="txtequ_tipo" required>
                                                             <option selected value="Todo en uno">Todo en Uno</option>
                                                             <option value="CPU">CPU</option>
                                                             <option value="Portatil">Portatil</option>
@@ -306,8 +310,9 @@
                                                     </div>  
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <div class="g-recaptcha" data-sitekey="6LfUVR8pAAAAAMyE2Igd5THThjc7PmMLSsZsjlVP"  data-callback="enableSubmitButton" data-expired-callback="recaptchaExpiredCallback"></div>
                                                     <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn btn-success" name="accion" value="agrequipocomputo">Agregar</button>   
+                                                    <button type="submit" class="AggButton btn btn-success" name="accion" value="agrequipocomputo" disabled/>Agregar</button>   
 
                                                 </div>
                                             </form>
@@ -326,14 +331,18 @@
                                         <div class="modal-body">
 
                                             <form action="../../equiposServlet" method="POST">
+                                                <input type="hidden" name="txtequ_id" id="equipoid_edit">
+                                                <input type="hidden" name="txtact_id" id="activoid_edit">
+                                                <input type="hidden" name="txtequ_id_Act" id="equipoidAct_edit">
+                                                
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Código</label>
-                                                        <input type="number" class="form-control" name="txtact_codigo" id="codigoedit" required/>
+                                                        <input type="number" class="form-control" name="txtact_codigoEdit" id="codigoedit" required/>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label>Estado</label>
-                                                        <select class="form-select" aria-label="Default select example" name="txtact_estado" id="estadoedit" required>
+                                                        <select class="form-select" aria-label="Default select example" name="txtact_estadoEdit" id="estadoedit" required>
                                                             <option selected value="1">Activo</option>
                                                             <option value="2">Inactivo</option>
                                                         </select>
@@ -342,57 +351,56 @@
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Marca</label>
-                                                        <input type="text" class="form-control" name="txtact_marca" id="marcaedit" required/>     
+                                                        <input type="text" class="form-control" name="txtact_marcaEdit" id="marcaedit" required/>     
                                                     </div>   
                                                     <div class="col-md-6 mb-3">
                                                         <label>Modelo</label>
-                                                        <input type="text" class="form-control" name="txtact_modelo" id="modeloedit" required/>     
+                                                        <input type="text" class="form-control" name="txtact_modeloEdit" id="modeloedit" required/>     
                                                     </div> 
                                                 </div>
-                                                <div class="row">
+                                                  <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>N° Serie</label>
-                                                        <input type="text" class="form-control" name="txtact_no_serie" id="noserieedit" required/>     
+                                                        <input type="text" class="form-control" name="txtact_no_serieEdit" id="noserieedit" required/>     
                                                     </div> 
                                                     <div class="col-md-6 mb-3">
                                                         <label>Fecha de adquisición</label>
-                                                        <input type="date" class="form-control" name="txtact_fecha_adqu" id="adqufechaedit" required/>     
+                                                        <input type="date" class="form-control" name="txtact_fecha_adquEdit" id="adqufechaedit" required/>     
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Precio de adquisición</label>
-                                                        <input type="number" class="form-control" name="txtact_precio_adqu" id="precioedit" required/>     
+                                                        <input type="number" class="form-control" name="txtact_precio_adquEdit" id="precioedit" required/>     
                                                     </div> 
                                                     <div class="col-md-6 mb-3">
                                                         <label>Vida Util (n° de meses)</label>
-                                                        <input type="number" class="form-control" name="txtact_vida_util" id="vidautiledit" required/>     
+                                                        <input type="number" class="form-control" name="txtact_vida_utilEdit" id="vidautiledit" required/>     
                                                     </div> 
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Meses Depreciados (n° de meses)</label>
-                                                        <input type="number" class="form-control" name="txtact_meses_depreciados" id="mesesdepr_edit" required/>     
+                                                        <input type="number" class="form-control" name="txtact_meses_depreciadosEdit" id="mesesdepr_edit" required/>     
                                                     </div> 
                                                     <div class="col-md-6 mb-3">
                                                         <label>Descripción</label>
-                                                        <input type="text" class="form-control" name="txtact_descripcion" id="descrip_edit" required/>                                         
+                                                        <input type="text" class="form-control" name="txtact_descripcionEdit" id="descrip_edit" required/>                                         
                                                     </div> 
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Fabricante</label>
 
-                                                        <select class="form-select" aria-label="Default select example" name="txttblfabricantes_id" id="fabri_edit" required>
+                                                        <select class="form-select" aria-label="Default select example" name="txttblfabricantes_idEdit" id="fabri_edit" required>
                                                             <option selected>Seleccione el Fabricante</option>
                                                             <%
-                                                                
                                                                 List<Fabricantes> listfabedit = fabDAO.MostrarFabricantes();
-                                                                request.setAttribute("listfab", listfab);
+                                                                request.setAttribute("listfabedit", listfabedit);
                                                             %>
-                                                            <c:forEach items="${listfab}" var="fab">
+                                                            <c:forEach items="${listfabedit}" var="fabedit">
 
-                                                                <option value="${fab.id}">${fab.fab_nombre}</option>
+                                                                <option value="${fabedit.id}">${fabedit.fab_nombre}</option>
 
                                                             </c:forEach>
                                                         </select>
@@ -402,15 +410,14 @@
                                                     </div>                             
                                                     <div class="col-md-6 mb-3">
                                                         <label>Ubicación</label>
-                                                        <select class="form-select" aria-label="Default select example" name="txttblubicacion_id" id="ubica_edit" required>
+                                                        <select class="form-select" aria-label="Default select example" name="txttblubicacion_idEdit" id="ubica_edit" required>
                                                             <option selected>Seleccione la ubicación</option>
-                                                            <%//                                                                UbicacionesDAO ubiDAO = new UbicacionesDAO();
-//                                                                List<Ubicaciones> listubi = ubiDAO.MostrarUbicaciones();
-//                                                                request.setAttribute("listubi", listubi);
-%>
-                                                            <c:forEach items="${listubi}" var="ubi">
-                                                                <option value="${ubi.id}">${ubi.ubi_descripcion}</option>
-
+                                                            <%
+                                                                List<Ubicaciones> listubiedit = ubiDAO.MostrarUbicaciones();
+                                                                request.setAttribute("listubiedit", listubiedit);
+                                                            %>
+                                                            <c:forEach items="${listubiedit}" var="ubiedit">
+                                                                <option value="${ubiedit.id}">${ubiedit.ubi_descripcion}</option>
                                                             </c:forEach>
                                                         </select>                                     
                                                     </div>
@@ -419,46 +426,45 @@
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Marca de Procesador</label>
-                                                        <input type="text" class="form-control" name="txtequ_procesador" id="marcaproce_edit" required/>     
+                                                        <input type="text" class="form-control" name="txtequ_procesadorEdit" id="marcaproce_edit" required/>     
                                                     </div> 
                                                     <div class="col-md-6 mb-3">
                                                         <label>Capacidad de RAM (N° de GB)</label>
-                                                        <input type="text" class="form-control" name="txtequ_ram" id="caparam_edit" required/>     
+                                                        <input type="text" class="form-control" name="txtequ_ramEdit" id="caparam_edit" required/>     
                                                     </div> 
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label>Marca Disco Duro</label>
-                                                        <input type="text" class="form-control" name="txtequ_discoduro_marca" id="marcadisco_edit" required/>     
+                                                        <input type="text" class="form-control" name="txtequ_discoduro_marcaEdit" id="marcadisco_edit" required/>     
                                                     </div> 
                                                     <div class="col-md-6 mb-3">
                                                         <label>Marca de Tarjeta de Video</label>
-                                                        <input type="text" class="form-control" name="txtequ_tajeta_video" id="marcatarjeta_edit" required/>     
+                                                        <input type="text" class="form-control" name="txtequ_tajeta_videoEdit" id="marcatarjeta_edit" required/>     
                                                     </div> 
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-md-4 mb-3">
                                                         <label>Numero de Puertos</label>
-                                                        <input type="number" class="form-control" name="txtequ_puertos" id="nopuertos_edit" required/>     
+                                                        <input type="number" class="form-control" name="txtequ_puertosEdit" id="nopuertos_edit" required/>     
                                                     </div> 
                                                     <div class="col-md-4 mb-3">
                                                         <label>Tipo de Equipo</label>
-                                                        <select class="form-select" aria-label="Default select example" name="txtact_estado" id="tipoequi_edit" required>
+                                                        <select class="form-select" aria-label="Default select example" name="txtequ_tipoEdit" id="tipoequi_edit" required>
                                                             <option selected value="Todo en uno">Todo en Uno</option>
                                                             <option value="CPU">CPU</option>
                                                             <option value="Portatil">Portatil</option>
-
                                                         </select>
                                                     </div>  
                                                     <div class="col-md-4 mb-3">
                                                         <label>Capacidad de Almacenamiento (N° de gb)</label>
-                                                        <input type="number" class="form-control" name="txtequ_capacidad_almacenamiento" id="almacapa_edit" required/>     
+                                                        <input type="number" class="form-control" name="txtequ_capacidad_almacenamientoEdit" id="almacapa_edit" required/>     
                                                     </div>  
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn btn-success" name="accion" value="agrequipocomputo">Actualizar</button>   
+                                                    <button type="submit" class="btn btn-success" name="accion" value="ActualizarEquipos">Actualizar</button>   
                                                 </div>
                                             </form>
                                         </div>
@@ -497,7 +503,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script src="../../js/js-equipos-computo.js"></script>
-        
+
 
 
 

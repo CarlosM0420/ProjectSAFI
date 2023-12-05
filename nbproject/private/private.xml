@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/ProjectSAFI/src/java/com/safi/servlet/UbicacionesServlet.java</file>
+            <file>file:/E:/ProjectSAFI/web/vistas/activosFijos/muebles.jsp</file>
+            <file>file:/E:/ProjectSAFI/web/js/script-ubicaciones.js</file>
+            <file>file:/E:/ProjectSAFI/web/js/js-muebles.js</file>
+            <file>file:/E:/ProjectSAFI/src/java/com/safi/controlador/Conexion.java</file>
+            <file>file:/E:/ProjectSAFI/web/vistas/ubicaciones/ubicaciones.jsp</file>
             <file>file:/E:/ProjectSAFI/web/vistas/activosFijos/equiposcomputo.jsp</file>
-            <file>file:/E:/ProjectSAFI/web/js/scripts.js</file>
-            <file>file:/E:/ProjectSAFI/web/js/js-menu.js</file>
-            <file>file:/E:/ProjectSAFI/web/js/js-equipos-computo.js</file>
-            <file>file:/E:/ProjectSAFI/web/js/datatables-simple-demo.js</file>
         </group>
     </open-files>
 </project-private>

@@ -86,5 +86,34 @@ public class ActivosFijosDAO {
         }
         return list;
     }
+    
+    public int ActualizarActivoFijo(ActivosFijos acfi) {
+        int status = 0;
+
+        try {
+            Conexion con = new Conexion();
+            Connection connection = con.AbrirConexion();
+            CallableStatement cs = connection.prepareCall("{call bdsafi.sp_ActualizarActivoFijo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            cs.setInt(1, acfi.getAct_codigo());
+            cs.setInt(2, acfi.getAct_estado());
+            cs.setString(3, acfi.getAct_marca());
+            cs.setString(4, acfi.getAct_modelo());
+            cs.setString(5, acfi.getAct_no_serie());
+            cs.setString(6, acfi.getAct_fecha_adqu());
+            cs.setInt(7, acfi.getAct_precio_adqu());
+            cs.setInt(8, acfi.getAct_vida_util());
+            cs.setInt(9, acfi.getAct_meses_depreciados());
+            cs.setString(10, acfi.getAct_descripcion());
+            cs.setInt(11, acfi.getTblfabricantes_id());
+            cs.setInt(12, acfi.getTblubicacion_id());
+            cs.setInt(13, acfi.getTbltiposactivosfijos_id());
+            cs.setInt(14, acfi.getAct_id());
+            
+            status = cs.executeUpdate();                       
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return status;
+    }
 
 }

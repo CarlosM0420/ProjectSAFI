@@ -50,8 +50,8 @@ public class EquiposServlet extends HttpServlet {
                     int intValue = Integer.parseInt(stringValue);
 
                     // Realiza la lógica para obtener los datos del DAO utilizando el ID
-                    
                     List<EquiposComputo> EquiposList = equDAO.EditarEquiposComputo(intValue);
+                    System.out.println(EquiposList);
 
                     // Configura la respuesta
                     response.setContentType("application/json");
@@ -75,6 +75,7 @@ public class EquiposServlet extends HttpServlet {
             }
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -85,7 +86,7 @@ public class EquiposServlet extends HttpServlet {
 
         //si la accion es igual a verequiposcomputo entonces dirigimos la pagina a la vista en donde se muestran las respectivas ubicaciones
         if (accion.equalsIgnoreCase("verequiposcomputo")) {
-            acceso = verequiposcomputo;
+            response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
         } // si la accion es igual a agregarequipocomputo hacemos la funcion de agregar
         else if (accion.equalsIgnoreCase("agrequipocomputo")) {
 
@@ -109,7 +110,7 @@ public class EquiposServlet extends HttpServlet {
             String txtequ_discoduro_marca = request.getParameter("txtequ_discoduro_marca");
             String txtequ_tajeta_video = request.getParameter("txtequ_tajeta_video");
             int txtequ_puertos = Integer.parseInt(request.getParameter("txtequ_puertos"));
-            String txtequ_tipo_equipo = request.getParameter("txtequ_tipo_equipo");
+            String txtequ_tipo_equipo = request.getParameter("txtequ_tipo");
             int txtequ_capacidad_almacenamiento = Integer.parseInt(request.getParameter("txtequ_capacidad_almacenamiento"));
 
             //enviamos los datos a los respectivos Sets de activos fijos
@@ -141,9 +142,76 @@ public class EquiposServlet extends HttpServlet {
             equ.setTblactivosfijos_id(act_id);
             equDAO.CrearEquipoComputo(equ);
 
-            acceso = verequiposcomputo;
+            response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
+
+        } else if (accion.equalsIgnoreCase("ActualizarEquipos")) {
+
+            //tomamos los valores para la tabla activo fijo
+            int txtact_id = Integer.parseInt(request.getParameter("txtact_id"));
+            int txtact_codigo = Integer.parseInt(request.getParameter("txtact_codigoEdit"));
+            int txtact_estado = Integer.parseInt(request.getParameter("txtact_estadoEdit"));
+            String txtact_marca = request.getParameter("txtact_marcaEdit");
+            String txtact_modelo = request.getParameter("txtact_modeloEdit");
+            String txtact_no_serie = request.getParameter("txtact_no_serieEdit");
+            String txtact_fecha_adqu = request.getParameter("txtact_fecha_adquEdit");
+            int txtact_precio_adqu = Integer.parseInt(request.getParameter("txtact_precio_adquEdit"));
+            int txtact_vida_util = Integer.parseInt(request.getParameter("txtact_vida_utilEdit"));
+            int txtact_meses_depreciados = Integer.parseInt(request.getParameter("txtact_meses_depreciadosEdit"));
+            String txtact_descripcion = request.getParameter("txtact_descripcionEdit");
+            int txttblfabricantes_id = Integer.parseInt(request.getParameter("txttblfabricantes_idEdit"));
+            int txttblubicacion_id = Integer.parseInt(request.getParameter("txttblubicacion_idEdit"));
+
+            //tomamos los valores para equipo de computo
+            int txtequ_id = Integer.parseInt(request.getParameter("txtequ_id"));
+            int txtequ_id_Act = Integer.parseInt(request.getParameter("txtequ_id_Act"));
+            System.out.println(txtequ_id_Act);
+            String txtequ_procesadorEdit = request.getParameter("txtequ_procesadorEdit");
+            int txtequ_ramEdit = Integer.parseInt(request.getParameter("txtequ_ramEdit"));
+            String txtequ_discoduro_marcaEdit = request.getParameter("txtequ_discoduro_marcaEdit");
+            String txtequ_tajeta_videoEdit = request.getParameter("txtequ_tajeta_videoEdit");
+            int txtequ_puertosEdit = Integer.parseInt(request.getParameter("txtequ_puertosEdit"));
+            String txtequ_tipo_equipoEdit = request.getParameter("txtequ_tipoEdit");
+            int txtequ_capacidad_almacenamientoEdit = Integer.parseInt(request.getParameter("txtequ_capacidad_almacenamientoEdit"));
+            System.out.println(txtequ_capacidad_almacenamientoEdit);
+
+            //enviamos los datos a los respectivos Sets de activos fijos
+            acf.setAct_codigo(txtact_codigo);
+            acf.setAct_estado(txtact_estado);
+            acf.setAct_marca(txtact_marca);
+            acf.setAct_modelo(txtact_modelo);
+            acf.setAct_no_serie(txtact_no_serie);
+            acf.setAct_fecha_adqu(txtact_fecha_adqu);
+            acf.setAct_precio_adqu(txtact_precio_adqu);
+            acf.setAct_vida_util(txtact_vida_util);
+            acf.setAct_meses_depreciados(txtact_meses_depreciados);
+            acf.setAct_descripcion(txtact_descripcion);
+            acf.setTblfabricantes_id(txttblfabricantes_id);
+            acf.setTblubicacion_id(txttblubicacion_id);
+            acf.setTbltiposactivosfijos_id(1);
+            acf.setAct_id(txtact_id);
+
+            //ejecutamos el metodo del DAO de Activos Fijos
+            acfDAO.ActualizarActivoFijo(acf);
+            
+            //enviamos los datos a los respectivos Sets de equipos computo
+            equ.setEqu_procesador(txtequ_procesadorEdit);
+            equ.setEqu_ram(txtequ_ramEdit);
+            equ.setEqu_discoduro_marca(txtequ_discoduro_marcaEdit);
+            equ.setEqu_tajeta_video(txtequ_tajeta_videoEdit);
+            equ.setEqu_puertos(txtequ_puertosEdit);
+            equ.setEqu_tipo_equipo(txtequ_tipo_equipoEdit);
+            equ.setEqu_capacidad_almacenamiento(txtequ_capacidad_almacenamientoEdit);
+            equ.setTblactivosfijos_id(txtequ_id_Act);
+            equ.setId(txtequ_id);
+            
+            //ejecutamos el metodo DAO de Equipos de computo            
+            equDAO.ActualizarEquipoComputo(equ);
+
+            
+            response.sendRedirect("vistas/activosFijos/equiposcomputo.jsp");
 
         }
-        response.sendRedirect(acceso);
+
+        
     }
 }

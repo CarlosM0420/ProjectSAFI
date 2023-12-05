@@ -100,6 +100,7 @@ public class EquiposComputoDAO {
                 equ.setEqu_puertos(rs.getInt("equ_puertos"));    
                 equ.setEqu_tipo_equipo(rs.getString("equ_tipo_equipo"));  
                 equ.setEqu_capacidad_almacenamiento(rs.getInt("equ_capacidad_almacenamiento"));   
+                equ.setTblactivosfijos_id(rs.getInt("tblactivosfijos_id"));   
                 
                 
                 // rellenar datos de Activos Fijos
@@ -132,4 +133,29 @@ public class EquiposComputoDAO {
         
         return list;
     }
+    
+     public int ActualizarEquipoComputo(EquiposComputo equ) {
+        int status = 0;
+
+        try {
+            Conexion con = new Conexion();
+            Connection connection = con.AbrirConexion();
+            PreparedStatement ps = connection.prepareStatement("call bdsafi.sp_ActualizarEquipoComputo(?,?,?,?,?,?,?,?,?)");
+            
+            ps.setString(1, equ.getEqu_procesador());
+            ps.setInt(2, equ.getEqu_ram());
+            ps.setString(3, equ.getEqu_discoduro_marca());
+            ps.setString(4, equ.getEqu_tajeta_video());
+            ps.setInt(5, equ.getEqu_puertos());
+            ps.setString(6, equ.getEqu_tipo_equipo());
+            ps.setInt(7, equ.getEqu_capacidad_almacenamiento());
+            ps.setInt(8, equ.getTblactivosfijos_id());
+            ps.setInt(9, equ.getId());
+            status = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
 }

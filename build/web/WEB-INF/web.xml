@@ -4,9 +4,25 @@
         <servlet-name>EquiposServlet</servlet-name>
         <servlet-class>com.safi.servlet.EquiposServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FabricantesServlet</servlet-name>
+        <servlet-class>com.safi.servlet.FabricantesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MueblesServlet</servlet-name>
+        <servlet-class>com.safi.servlet.MueblesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EquiposServlet</servlet-name>
         <url-pattern>/equiposServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FabricantesServlet</servlet-name>
+        <url-pattern>/fabricantesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MueblesServlet</servlet-name>
+        <url-pattern>/mueblesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

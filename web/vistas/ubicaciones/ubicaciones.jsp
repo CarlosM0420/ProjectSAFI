@@ -11,10 +11,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="Omar Orozco" />
-        <title>Proveedores</title>
+        <title>Ubicaciones</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="../../css/css-menu.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Script de api de reCAPtcha -->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
 
         <%@page import="java.util.List"%>
         <%@page import="com.safi.pojo.Ubicaciones"%>
@@ -67,6 +70,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="../activosFijos/equiposcomputo.jsp">Equipos Computo</a>
                                     <a class="nav-link" href="#">Maquinaria</a>
+                                    <a class="nav-link" href="../activosFijos/muebles.jsp">Muebles</a>
                                 </nav>
                             </div>
                             <a class="nav-link" href="#">
@@ -163,24 +167,29 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="../../UbicacionesServlet">
+                                                <form action="../../UbicacionesServlet" method="POST" id="form_id">
 
                                                     <div class="form-group">
                                                         <label for="editCodigo">Código</label>
-                                                        <input type="number" class="form-control" name="txtubi_codigo" id="inputform" required/>
+                                                        <input type="number" class="form-control" name="txtubi_codigo" required/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editFamilia">Descripción</label>
-                                                        <input type="text" class="form-control" name="txtubi_descripcion" id="inputform" required/>
+                                                        <input type="text" class="form-control" name="txtubi_descripcion" required/>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="editUbicacion">Centro de costo</label>
-                                                        <input type="text" class="form-control" name="txtubi_centro_costo" id="inputform" required/>     
+                                                        <input type="text" class="form-control" name="txtubi_centro_costo" required/>     
                                                     </div>                            
 
                                                     <div class="modal-footer">
+
                                                         <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                                                        <button type="submit" class="btn btn-success" name="accion" value="agrubicacion">Crear Ubicación</button>                                
+
+                                                        <button  class="AggButton btn btn-success" name="accion" value="agrubicacion">Crear Ubicación</button> 
+
+                                                        
+
                                                     </div>
                                                 </form>
 
@@ -215,7 +224,8 @@
 
                                                     <div class="modal-footer">
                                                         <button type="" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                                                        <button type="submit" class="btn btn-success" name="accion" value="actubicacion">Actualizar</button>                                
+                                                        <button type="submit" class="btn btn-success" >Actualizar</button>
+
                                                     </div>
                                                 </form>
 
@@ -254,11 +264,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>        
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="../../js/datatables-simple-demo.js"></script>        
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>  
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> 
+
         <script src="../../js/script-ubicaciones.js"></script>
-
-            
-
         
+
+
+
     </body>
 </html>
