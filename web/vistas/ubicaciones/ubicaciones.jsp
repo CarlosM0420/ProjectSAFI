@@ -26,6 +26,15 @@
 
 
     </head>
+    
+      <%
+    HttpSession sesion = request.getSession(); // Obtiene la sesión actual del usuario
+    String usu_nombre_apellidos = (String) sesion.getAttribute("usu_nombre_apellidos"); // Obtiene el valor del atributo "usu_nombre_apellidos" de la sesión
+    String movimiento = (String) sesion.getAttribute("movimiento"); // Obtiene el valor del atributo "movimiento" de la sesión
+    movimiento = movimiento + "Ubic - "; // Agrega la cadena  "Ubic-" al valor de "movimiento"
+    sesion.setAttribute("movimiento", movimiento); // Establece el nuevo valor de "movimiento" en la sesión
+    %>
+    
     <body class="sb-nav-fixed">
 
 

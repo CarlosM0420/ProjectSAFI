@@ -18,14 +18,14 @@
 
     <body>
         <div class="wrapper">
-            <form action="loginServlet" method="POST" class="form-signin">       
-                <h2 class="form-signin-heading">Iniciar Sesión</h2>
-                <input type="email" class="form-control" name="email" placeholder="Correo electronico" required="" autofocus="" />
-                <input type="password" class="form-control" name="password" placeholder="Contraseña" required=""/>      
-                <label class="checkbox">
-                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Recordarme
-                </label>
-                <button class="btn btn-lg btn-success btn-block" type="submit">Ingresar</button>   
+             <form action="loginServlet" method="POST" class="form-signin">       
+             <h2 class="form-signin-heading">Iniciar Sesión</h2>
+             <input type="email" class="form-control" name="email" placeholder="Correo electronico" required="" autofocus="" />
+             <input type="password" class="form-control" name="password" placeholder="Contraseña" required=""/>      
+             <label class="checkbox">
+             <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Recordarme
+             </label>
+             <button class="btn btn-lg btn-success btn-block" type="submit">Ingresar</button>   
             </form>
         </div>
 

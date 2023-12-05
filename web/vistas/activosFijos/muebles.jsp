@@ -27,9 +27,16 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>  
 
     </head>
+    
+     <%
+    HttpSession sesion = request.getSession();   // Obtiene la sesión actual del usuario
+    String usu_nombre_apellidos = (String) sesion.getAttribute("usu_nombre_apellidos");   // Obtiene el valor del atributo "usu_nombre_apellidos" de la sesión
+    String movimiento = (String) sesion.getAttribute("movimiento"); // Obtiene el valor del atributo "movimiento" de la sesión
+    movimiento = movimiento + "Fich muebles - ";  // Agrega la cadena "Fich compu-" al valor de "movimiento"
+    sesion.setAttribute("movimiento", movimiento);  // Establece el nuevo valor de "movimiento" en la sesión
+    %>
+    
     <body class="sb-nav-fixed">
-
-
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html"><img src="" alt="Logo"/></a> <!-- Aca va el logo -->

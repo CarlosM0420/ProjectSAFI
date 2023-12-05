@@ -12,6 +12,10 @@
         <servlet-name>MueblesServlet</servlet-name>
         <servlet-class>com.safi.servlet.MueblesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CerrarSesionServlet</servlet-name>
+        <servlet-class>com.safi.servlet.CerrarSesionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EquiposServlet</servlet-name>
         <url-pattern>/equiposServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>MueblesServlet</servlet-name>
         <url-pattern>/mueblesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CerrarSesionServlet</servlet-name>
+        <url-pattern>/cerrarsesionservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
